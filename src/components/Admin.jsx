@@ -5,6 +5,7 @@ import {
     LayoutDashboard, MessageSquare, Code2, Rocket, Plus, Trash2,
     ExternalLink, CheckCircle, AlertCircle, Loader2, Diamond, Send, LogOut
 } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState('messages');
@@ -41,9 +42,9 @@ const Admin = () => {
         try {
             const headers = getHeaders();
             const [msgRes, skillRes, projRes] = await Promise.all([
-                fetch('http://localhost:5000/api/messages', { headers }),
-                fetch('http://localhost:5000/api/skills', { headers }),
-                fetch('http://localhost:5000/api/projects', { headers })
+                fetch(`${API_BASE_URL}/api/messages`, { headers }),
+                fetch(`${API_BASE_URL}/api/skills`, { headers }),
+                fetch(`${API_BASE_URL}/api/projects`, { headers })
             ]);
 
             const [msgData, skillData, projData] = await Promise.all([
@@ -66,7 +67,7 @@ const Admin = () => {
         if (!window.confirm(`Are you sure you want to delete this ${type.slice(0, -1)}?`)) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/${type}/${id}`, {
+            const res = await fetch(`${API_BASE_URL}/api/${type}/${id}`, {
                 method: 'DELETE',
                 headers: getHeaders()
             });
@@ -81,7 +82,7 @@ const Admin = () => {
     const handleAddSkill = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:5000/api/skills', {
+            const res = await fetch(`${API_BASE_URL}/api/skills`, {
                 method: 'POST',
                 headers: getHeaders(),
                 body: JSON.stringify(skillForm)
@@ -109,7 +110,7 @@ const Admin = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:5000/api/projects', {
+            const res = await fetch(`${API_BASE_URL}/api/projects`, {
                 method: 'POST',
                 headers: getHeaders(),
                 body: JSON.stringify(projectData)

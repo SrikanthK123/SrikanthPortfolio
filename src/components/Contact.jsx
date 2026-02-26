@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Github, Send, Phone, CheckCircle, AlertCircle } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const ContactInfo = ({ icon: Icon, label, value, href }) => (
     <motion.a
@@ -57,7 +58,7 @@ const Contact = () => {
         setStatus({ type: '', message: '' });
 
         try {
-            const response = await fetch('http://localhost:5000/api/contact', {
+            const response = await fetch(`${API_BASE_URL}/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -190,8 +191,8 @@ const Contact = () => {
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         className={`p-4 rounded-lg flex items-center gap-3 text-sm font-medium ${status.type === 'success'
-                                                ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-                                                : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                                            ? 'bg-green-500/10 text-green-400 border border-green-500/20'
+                                            : 'bg-red-500/10 text-red-400 border border-red-500/20'
                                             }`}
                                     >
                                         {status.type === 'success' ? <CheckCircle size={18} /> : <AlertCircle size={18} />}

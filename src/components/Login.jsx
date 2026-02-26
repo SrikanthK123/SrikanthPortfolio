@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail, Key, ShieldCheck, Loader2, AlertCircle } from 'lucide-react';
+import API_BASE_URL from '../config';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -26,7 +27,7 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:5000/api/login', {
+            const response = await fetch(`${API_BASE_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

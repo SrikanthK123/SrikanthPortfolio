@@ -19,6 +19,8 @@ const Coffee = ({ size = 24, strokeWidth = 2, ...props }) => (
     </svg>
 );
 
+import API_BASE_URL from '../config';
+
 const Skills = () => {
     const [skills, setSkills] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -29,7 +31,7 @@ const Skills = () => {
     useEffect(() => {
         const fetchSkills = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/skills');
+                const response = await fetch(`${API_BASE_URL}/api/skills`);
                 const data = await response.json();
                 setSkills(data);
             } catch (error) {

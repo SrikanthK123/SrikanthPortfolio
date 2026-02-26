@@ -59,6 +59,8 @@ const ProjectCard = ({ title, description, tech, links, delay }) => (
     </motion.div>
 );
 
+import API_BASE_URL from '../config';
+
 const Projects = () => {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -67,7 +69,7 @@ const Projects = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/projects');
+                const response = await fetch(`${API_BASE_URL}/api/projects`);
                 const data = await response.json();
 
                 // Custom Priority Order
