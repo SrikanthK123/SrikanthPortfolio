@@ -163,7 +163,7 @@ const INITIAL_PROJECTS = [
 
 const Projects = () => {
     const [projects, setProjects] = useState(INITIAL_PROJECTS);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
@@ -209,12 +209,6 @@ const Projects = () => {
     }, []);
 
     const displayedProjects = showAll ? projects : projects.slice(0, 6);
-
-    if (loading) return (
-        <section id="projects" className="py-32 bg-[#020617] flex items-center justify-center">
-            <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
-        </section>
-    );
 
     return (
         <section id="projects" className="relative py-32 px-4 bg-[#020617]">

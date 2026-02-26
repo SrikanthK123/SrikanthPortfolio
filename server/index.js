@@ -92,7 +92,11 @@ app.post('/api/contact', async (req, res) => {
         await newMessage.save();
         res.status(201).json({ message: 'Message sent successfully' });
     } catch (error) {
-        res.status(500).json({ error: 'Server error' });
+        console.error('Contact Form Save Error:', error);
+        res.status(500).json({
+            error: 'Server error',
+            details: error.message
+        });
     }
 });
 
@@ -160,6 +164,25 @@ app.delete('/api/projects/:id', authMiddleware, async (req, res) => {
         res.json({ message: 'Project deleted' });
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.get('/api/test-db', async (req, res) => {
+    try {
+        const state = mongoose.connection.readyState;
+        const states = {
+            0: 'disconnected',
+            1: 'connected',
+            2: 'connecting',
+            3: 'disconnecting',
+        };
+        res.json({
+            status: states[state],
+            database: mongoose.connection.name,
+            uri: process.env.MONGODB_URI ? 'Defined (Hidden for safety)' : 'NOT DEFINED'
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 });
 

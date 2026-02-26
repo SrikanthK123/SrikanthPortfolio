@@ -62,7 +62,7 @@ const INITIAL_SKILLS = [
 
 const Skills = () => {
     const [skills, setSkills] = useState(INITIAL_SKILLS);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [activeSkill, setActiveSkill] = useState(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [isMobile, setIsMobile] = useState(false);
@@ -107,7 +107,7 @@ const Skills = () => {
         return LucideIcons[iconName] || LucideIcons.Code2;
     };
 
-    if (loading) return (
+    if (loading && skills.length === 0) return (
         <section id="skills" className="py-32 bg-[#020617] flex items-center justify-center">
             <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
         </section>
