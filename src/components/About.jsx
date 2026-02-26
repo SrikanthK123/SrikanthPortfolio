@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ResumeModal from './ResumeModal';
 
@@ -18,7 +19,7 @@ const ExperienceItem = ({ title, date, subtitle, number }) => (
 );
 
 const About = () => {
-    const [isResumeOpen, setIsResumeOpen] = React.useState(false);
+    const [isResumeOpen, setIsResumeOpen] = useState(false);
     const education = [
         {
             number: "01",
