@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
+import ResumeModal from './ResumeModal';
 
 const ExperienceItem = ({ title, date, subtitle, number }) => (
     <div className="mb-12 group last:mb-0">
@@ -18,6 +18,7 @@ const ExperienceItem = ({ title, date, subtitle, number }) => (
 );
 
 const About = () => {
+    const [isResumeOpen, setIsResumeOpen] = React.useState(false);
     const education = [
         {
             number: "01",
@@ -163,6 +164,7 @@ const About = () => {
                             </div>
 
                             <motion.button
+                                onClick={() => setIsResumeOpen(true)}
                                 className="mt-4 px-8 py-3 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm font-bold tracking-widest uppercase hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.2)]"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -201,6 +203,7 @@ const About = () => {
                     </div>
                 </div>
             </div>
+            <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
         </section>
     );
 };

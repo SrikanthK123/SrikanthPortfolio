@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, Download } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import resumePdf from '../assets/SrikanthKondapaka_Resume.pdf';
 
 const NavLink = ({ href, children, onMobileLinkClick }) => {
     const location = useLocation();
@@ -93,9 +94,14 @@ const Navbar = () => {
                     {navLinks.map((link) => (
                         <NavLink key={link.href} href={link.href}>{link.label}</NavLink>
                     ))}
-                    <button className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full border border-white/10 transition-all font-semibold">
-                        Resume
-                    </button>
+                    <a
+                        href={resumePdf}
+                        download="SrikanthKondapaka_Resume.pdf"
+                        className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full border border-white/10 transition-all font-semibold flex items-center gap-2 group"
+                    >
+                        <span>Resume</span>
+                        <Download size={14} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                    </a>
                 </div>
 
                 {/* Mobile Menu Toggle */}
@@ -129,9 +135,15 @@ const Navbar = () => {
                                         {link.label}
                                     </NavLink>
                                 ))}
-                                <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full transition-all font-semibold shadow-[0_0_20px_rgba(59,130,246,0.5)]">
-                                    Resume
-                                </button>
+                                <a
+                                    href={resumePdf}
+                                    download="SrikanthKondapaka_Resume.pdf"
+                                    onClick={() => setIsOpen(false)}
+                                    className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full transition-all font-semibold shadow-[0_0_20px_rgba(59,130,246,0.5)] flex items-center gap-2"
+                                >
+                                    <span>Resume</span>
+                                    <Download size={18} />
+                                </a>
                             </div>
                         </motion.div>
                     )}

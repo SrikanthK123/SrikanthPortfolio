@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Atom, Code2, Network, Cpu } from 'lucide-react';
+import { Atom, Code2, Network, Cpu, FileText } from 'lucide-react';
+import ResumeModal from './ResumeModal';
 
 const FloatingElement = ({ children, x, y, delay = 0, duration = 5 }) => (
     <motion.div
@@ -86,6 +87,7 @@ const NeuralOrb = ({ children }) => (
 
 const Hero = () => {
     const [particles, setParticles] = useState([]);
+    const [isResumeOpen, setIsResumeOpen] = useState(false);
 
     useEffect(() => {
         const newParticles = Array.from({ length: 30 }).map((_, i) => ({
@@ -170,7 +172,14 @@ const Hero = () => {
                         <a href="#projects" className="neon-button text-center">
                             View Projects
                         </a>
-                        <a href="#contact" className="glass-button text-center">
+                        <button
+                            onClick={() => setIsResumeOpen(true)}
+                            className="glass-button text-center flex items-center justify-center gap-2"
+                        >
+                            <FileText size={18} />
+                            Full Resume
+                        </button>
+                        <a href="#contact" className="text-gray-400 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
                             Contact Me
                         </a>
                     </div>
@@ -218,6 +227,10 @@ const Hero = () => {
                 </motion.div>
             </div>
 
+            <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+
+            <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
         </section>
     );
 };
