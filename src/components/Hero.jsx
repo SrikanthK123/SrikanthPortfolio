@@ -172,14 +172,7 @@ const Hero = () => {
                         <a href="#projects" className="neon-button text-center">
                             View Projects
                         </a>
-                        <button
-                            onClick={() => setIsResumeOpen(true)}
-                            className="glass-button text-center flex items-center justify-center gap-2"
-                        >
-                            <FileText size={18} />
-                            Full Resume
-                        </button>
-                        <a href="#contact" className="text-gray-400 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
+                        <a href="#contact" className="glass-button text-center">
                             Contact Me
                         </a>
                     </div>
