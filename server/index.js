@@ -117,7 +117,8 @@ app.get('/api/skills', async (req, res) => {
         const skills = await Skill.find();
         res.json(skills);
     } catch (error) {
-        res.status(500).json({ error: 'Server error' });
+        console.error('Skills Fetch Error:', error);
+        res.status(500).json({ error: 'Server error', details: error.message });
     }
 });
 
@@ -146,7 +147,8 @@ app.get('/api/projects', async (req, res) => {
         const projects = await Project.find().sort({ createdAt: -1 });
         res.json(projects);
     } catch (error) {
-        res.status(500).json({ error: 'Server error' });
+        console.error('Projects Fetch Error:', error);
+        res.status(500).json({ error: 'Server error', details: error.message });
     }
 });
 
