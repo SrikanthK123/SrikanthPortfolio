@@ -22,42 +22,42 @@ const Coffee = ({ size = 24, strokeWidth = 2, ...props }) => (
 import API_BASE_URL from '../config';
 
 const INITIAL_SKILLS = [
-    { skill: "JavaScript", level: 95, color: "#F7DF1E", cat: "Languages", iconName: "Code2" },
-    { skill: "Python", level: 90, color: "#3776AB", cat: "Languages", iconName: "Terminal" },
-    { skill: "Java", level: 85, color: "#007396", cat: "Languages", iconName: "Coffee" },
-    { skill: "C", level: 80, color: "#A8B9CC", cat: "Languages", iconName: "Terminal" },
-    { skill: "SQL (Postgres)", level: 90, color: "#336791", cat: "Languages", iconName: "Database" },
-    { skill: "MongoDB", level: 85, color: "#47A248", cat: "Languages", iconName: "Database" },
-    { skill: "HTML/CSS", level: 95, color: "#E34F26", cat: "Languages", iconName: "Layout" },
-    { skill: "Tailwind", level: 95, color: "#38B2AC", cat: "Languages", iconName: "Wind" },
-    { skill: "React", level: 90, color: "#61DAFB", cat: "Frameworks", iconName: "Atom" },
-    { skill: "Next.js", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Rocket" },
-    { skill: "Node.js", level: 85, color: "#68A063", cat: "Frameworks", iconName: "Server" },
-    { skill: "Express.js", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Zap" },
-    { skill: "Django", level: 80, color: "#092E20", cat: "Frameworks", iconName: "FileCode" },
-    { skill: "Scikit-learn", level: 80, color: "#F7931E", cat: "Frameworks", iconName: "LineChart" },
-    { skill: "TensorFlow", level: 75, color: "#FF6F00", cat: "Frameworks", iconName: "Brain" },
-    { skill: "Keras", level: 75, color: "#D00000", cat: "Frameworks", iconName: "Brain" },
-    { skill: "PySpark", level: 80, color: "#E25A1C", cat: "Frameworks", iconName: "Flame" },
-    { skill: "SparkSQL", level: 80, color: "#E25A1C", cat: "Frameworks", iconName: "Database" },
-    { skill: "LangChain", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "LinkIcon" },
-    { skill: "LLMs (Ollama)", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Bot" },
-    { skill: "Git", level: 90, color: "#F05032", cat: "Tools", iconName: "Github" },
-    { skill: "VS Code", level: 95, color: "#007ACC", cat: "Tools", iconName: "Monitor" },
-    { skill: "PyCharm", level: 85, color: "#21D789", cat: "Tools", iconName: "FileCode" },
-    { skill: "IntelliJ", level: 85, color: "#FE315D", cat: "Tools", iconName: "FileCode" },
-    { skill: "Eclipse", level: 75, color: "#2C2255", cat: "Tools", iconName: "Monitor" },
-    { skill: "Office (Excel/Word)", level: 90, color: "#2B579A", cat: "Tools", iconName: "FileText" },
-    { skill: "Outlook", level: 85, color: "#0078D4", cat: "Tools", iconName: "Mail" },
-    { skill: "GenAI", level: 90, color: "#FF4B4B", cat: "AI/Data", iconName: "Sparkles" },
-    { skill: "Vibe coding", level: 95, color: "#9B59B6", cat: "AI/Data", iconName: "Music" },
-    { skill: "AI Agents", level: 85, color: "#F1C40F", cat: "AI/Data", iconName: "Bot" },
-    { skill: "AppWrite", level: 80, color: "#F02D65", cat: "AI/Data", iconName: "Database" },
-    { skill: "Azure", level: 85, color: "#0089D6", cat: "AI/Data", iconName: "Cloud" },
-    { skill: "Azure Data Factory", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Layers" },
-    { skill: "Azure Databricks", level: 85, color: "#FF3621", cat: "AI/Data", iconName: "Box" },
-    { skill: "Azure Data Lake", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Waves" },
-    { skill: "Delta Lake", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Database" },
+    { skill: "JavaScript", level: 95, color: "#F7DF1E", cat: "Languages", iconName: "Code2", strength: "Logic & Problem Solving", usecase: "Dynamic Web Applications" },
+    { skill: "Python", level: 90, color: "#3776AB", cat: "Languages", iconName: "Terminal", strength: "Automation & Scripting", usecase: "AI/ML & Data Backend" },
+    { skill: "Java", level: 85, color: "#007396", cat: "Languages", iconName: "Coffee", strength: "OOP & Multithreading", usecase: "Enterprise Applications" },
+    { skill: "C", level: 80, color: "#A8B9CC", cat: "Languages", iconName: "Terminal", strength: "Memory Mgmt & Fast Exec", usecase: "Low-level System Dev" },
+    { skill: "SQL (Postgres)", level: 90, color: "#336791", cat: "Languages", iconName: "Database", strength: "Complex Querying", usecase: "Relational Data Mgmt" },
+    { skill: "MongoDB", level: 85, color: "#47A248", cat: "Languages", iconName: "Database", strength: "NoSQL Architectures", usecase: "Schema-less Data Apps" },
+    { skill: "HTML/CSS", level: 95, color: "#E34F26", cat: "Languages", iconName: "Layout", strength: "Responsive UX/UI", usecase: "Web Structure & Style" },
+    { skill: "Tailwind", level: 95, color: "#38B2AC", cat: "Languages", iconName: "Wind", strength: "Utility-First Design", usecase: "Rapid UI Development" },
+    { skill: "React", level: 90, color: "#61DAFB", cat: "Frameworks", iconName: "Atom", strength: "Component-based architecture", usecase: "Single-Page Apps" },
+    { skill: "Next.js", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Rocket", strength: "SSR & SEO Optimization", usecase: "Production Web Frameworks" },
+    { skill: "Node.js", level: 85, color: "#68A063", cat: "Frameworks", iconName: "Server", strength: "Event-driven architecture", usecase: "Scalable Network Apps" },
+    { skill: "Express.js", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Zap", strength: "Middleware & Routing", usecase: "RESTful API Backend" },
+    { skill: "Django", level: 80, color: "#092E20", cat: "Frameworks", iconName: "FileCode", strength: "MVT Architecture", usecase: "Rapid Backend Dev" },
+    { skill: "Scikit-learn", level: 80, color: "#F7931E", cat: "Frameworks", iconName: "LineChart", strength: "ML Algorithms", usecase: "Predictive Analytics" },
+    { skill: "TensorFlow", level: 75, color: "#FF6F00", cat: "Frameworks", iconName: "Brain", strength: "Deep Learning Graphs", usecase: "Large Scale AI Models" },
+    { skill: "Keras", level: 75, color: "#D00000", cat: "Frameworks", iconName: "Brain", strength: "Simple Neural NW API", usecase: "Fast AI Prototyping" },
+    { skill: "PySpark", level: 80, color: "#E25A1C", cat: "Frameworks", iconName: "Flame", strength: "Distributed Data Proc", usecase: "Big Data ETL Pipelines" },
+    { skill: "SparkSQL", level: 80, color: "#E25A1C", cat: "Frameworks", iconName: "Database", strength: "Large Dataset Querying", usecase: "Big Data Analysis" },
+    { skill: "LangChain", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "LinkIcon", strength: "LLM Orchestration", usecase: "Agentic AI workflows" },
+    { skill: "LLMs (Ollama)", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Bot", strength: "Local LLM Execution", usecase: "Privacy-first AI Apps" },
+    { skill: "Git", level: 90, color: "#F05032", cat: "Tools", iconName: "Github", strength: "Version Control Workflow", usecase: "Collaborative Coding" },
+    { skill: "VS Code", level: 95, color: "#007ACC", cat: "Tools", iconName: "Monitor", strength: "IDE Optimization", usecase: "Full-Stack Development" },
+    { skill: "PyCharm", level: 85, color: "#21D789", cat: "Tools", iconName: "FileCode", strength: "Python Environment Mgmt", usecase: "Advanced Python Dev" },
+    { skill: "IntelliJ", level: 85, color: "#FE315D", cat: "Tools", iconName: "FileCode", strength: "Code Analysis & Refactoring", usecase: "Java/Kotlin Development" },
+    { skill: "Eclipse", level: 75, color: "#2C2255", cat: "Tools", iconName: "Monitor", strength: "Legacy System Integration", usecase: "Java Desktop/Web Apps" },
+    { skill: "Office (Excel/Word)", level: 90, color: "#2B579A", cat: "Tools", iconName: "FileText", strength: "Complex Data Pivot/VBA", usecase: "Business Reporting" },
+    { skill: "Outlook", level: 85, color: "#0078D4", cat: "Tools", iconName: "Mail", strength: "Corporate Communication", usecase: "Schedule Management" },
+    { skill: "GenAI", level: 90, color: "#FF4B4B", cat: "AI/Data", iconName: "Sparkles", strength: "Prompt Engineering", usecase: "Content Generation" },
+    { skill: "Vibe coding", level: 95, color: "#9B59B6", cat: "AI/Data", iconName: "Music", strength: "Intuitive System Creation", usecase: "Fast Feature Prototyping" },
+    { skill: "AI Agents", level: 85, color: "#F1C40F", cat: "AI/Data", iconName: "Bot", strength: "Autonomous Task Execution", usecase: "Process Automation" },
+    { skill: "AppWrite", level: 80, color: "#F02D65", cat: "AI/Data", iconName: "Database", strength: "BaaS Architecture", usecase: "Mobile/Web App Backend" },
+    { skill: "Azure", level: 85, color: "#0089D6", cat: "AI/Data", iconName: "Cloud", strength: "Cloud Infrastructure", usecase: "Enterprise Cloud Hosting" },
+    { skill: "Azure Data Factory", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Layers", strength: "ETL Data Orchestration", usecase: "Enterprise Data Pipelines" },
+    { skill: "Azure Databricks", level: 85, color: "#FF3621", cat: "AI/Data", iconName: "Box", strength: "Fast Spark Processing", usecase: "Real-time Machine Learning" },
+    { skill: "Azure Data Lake", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Waves", strength: "HDFS Storage Mgmt", usecase: "Big Data Storage" },
+    { skill: "Delta Lake", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Database", strength: "ACID Transactions", usecase: "Data Reliability & Speed" },
 ];
 
 const Skills = () => {
@@ -232,12 +232,16 @@ const Skills = () => {
 
                                     <div className="mt-6 grid grid-cols-2 gap-2">
                                         <div className="p-2 rounded-lg bg-white/5 border border-white/5">
-                                            <span className="block text-[7px] uppercase text-gray-500 mb-0.5">Status</span>
-                                            <span className="text-[8px] text-green-400 font-bold uppercase tracking-tighter">Operational</span>
+                                            <span className="block text-[7px] uppercase text-gray-500 mb-0.5">Core Strength</span>
+                                            <span className="text-[8px] text-green-400 font-bold uppercase tracking-tighter">
+                                                {activeSkill.strength || (activeSkill.level >= 90 ? 'Hands-On Practice' : 'Fundamentals')}
+                                            </span>
                                         </div>
                                         <div className="p-2 rounded-lg bg-white/5 border border-white/5">
-                                            <span className="block text-[7px] uppercase text-gray-500 mb-0.5">Latency</span>
-                                            <span className="text-[8px] text-blue-400 font-bold uppercase tracking-tighter">0.02ms</span>
+                                            <span className="block text-[7px] uppercase text-gray-500 mb-0.5">Primary Use</span>
+                                            <span className="text-[8px] text-blue-400 font-bold uppercase tracking-tighter">
+                                                {activeSkill.usecase || (activeSkill.level >= 95 ? '4+ Years' : activeSkill.level >= 85 ? '2-3 Years' : '1-2 Years')}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
