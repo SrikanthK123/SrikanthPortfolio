@@ -20,6 +20,9 @@ const Admin = () => {
     const [skillForm, setSkillForm] = useState({ skill: '', level: 90, color: '#3b82f6', cat: 'Languages', iconName: 'Code2' });
     const [projectForm, setProjectForm] = useState({ title: '', description: '', tech: '', github: '', live: '' });
 
+    // Modal states
+    const [deleteModal, setDeleteModal] = useState({ show: false, type: '', id: '', title: '' });
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -63,9 +66,12 @@ const Admin = () => {
         }
     };
 
-    const handleDelete = async (type, id) => {
-        if (!window.confirm(`Are you sure you want to delete this ${type.slice(0, -1)}?`)) return;
+    const handleDelete = (type, id, title = '') => {
+        setDeleteModal({ show: true, type, id, title });
+    };
 
+    const confirmDelete = async () => {
+        const { type, id } = deleteModal;
         try {
             const res = await fetch(`${API_BASE_URL}/api/${type}/${id}`, {
                 method: 'DELETE',
@@ -73,6 +79,7 @@ const Admin = () => {
             });
             if (res.ok) {
                 fetchData();
+                setDeleteModal({ show: false, type: '', id: '', title: '' });
             }
         } catch (err) {
             alert('Delete failed');
@@ -132,6 +139,53 @@ const Admin = () => {
 
     return (
         <div className="min-h-screen bg-[#020617] text-white pt-32 px-4 pb-20">
+            {/* Delete Confirmation Modal */}
+            <AnimatePresence>
+                {deleteModal.show && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                        onClick={() => setDeleteModal({ ...deleteModal, show: false })}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            className="bg-[#0a0f1d] border border-white/10 p-8 rounded-[2rem] max-w-sm w-full shadow-2xl relative overflow-hidden"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500/50 via-red-500 to-red-500/50" />
+
+                            <div className="text-center">
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 mb-6">
+                                    <AlertCircle className="w-8 h-8 text-red-500" />
+                                </div>
+                                <h3 className="text-2xl font-black uppercase tracking-tight mb-2">Confirm Delete</h3>
+                                <p className="text-gray-400 text-sm mb-8 leading-relaxed">
+                                    Are you sure you want to permanently remove <span className="text-white font-bold">{deleteModal.title || 'this item'}</span>? This action cannot be undone.
+                                </p>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <button
+                                        onClick={() => setDeleteModal({ ...deleteModal, show: false })}
+                                        className="py-4 rounded-xl bg-white/5 border border-white/10 text-gray-400 font-bold uppercase tracking-widest text-xs hover:bg-white/10 hover:text-white transition-all"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={confirmDelete}
+                                        className="py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 text-white font-black uppercase tracking-widest text-xs hover:from-red-500 hover:to-red-600 transition-all shadow-lg shadow-red-500/20 active:scale-[0.98]"
+                                    >
+                                        Delete Now
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                     <div className="flex items-center gap-6">
@@ -204,7 +258,7 @@ const Admin = () => {
                                                 <td className="px-6 py-4 text-sm text-gray-400 max-w-xs truncate">{msg.message}</td>
                                                 <td className="px-6 py-4">
                                                     <button
-                                                        onClick={() => handleDelete('messages', msg._id)}
+                                                        onClick={() => handleDelete('messages', msg._id, `message from ${msg.fullName}`)}
                                                         className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                                                     >
                                                         <Trash2 size={18} />
@@ -298,7 +352,7 @@ const Admin = () => {
                                             </div>
                                         </div>
                                         <button
-                                            onClick={() => handleDelete('skills', skill._id)}
+                                            onClick={() => handleDelete('skills', skill._id, skill.skill)}
                                             className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-all"
                                         >
                                             <Trash2 size={18} />
@@ -390,7 +444,7 @@ const Admin = () => {
                                                 <h4 className="text-lg font-bold uppercase">{proj.title}</h4>
                                             </div>
                                             <button
-                                                onClick={() => handleDelete('projects', proj._id)}
+                                                onClick={() => handleDelete('projects', proj._id, proj.title)}
                                                 className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg group-hover:opacity-100 transition-all lg:opacity-0"
                                             >
                                                 <Trash2 size={18} />
