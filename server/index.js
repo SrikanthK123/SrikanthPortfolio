@@ -19,9 +19,23 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB: UserMessages'))
-    .catch(err => console.error('MongoDB connection error:', err));
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('Connected to MongoDB: UserMessages');
+    } catch (err) {
+        console.error('MongoDB connection error:', err.message);
+        // Important: Password with @ needs encoding in the URI string
+        if (err.message.includes('Authentication failed') || err.message.includes('URI malformed')) {
+            console.error('TIP: If your password has @, use %40 instead in the MONGODB_URI');
+        }
+    }
+};
+
+connectDB();
 
 // Message Schema
 const messageSchema = new mongoose.Schema({
