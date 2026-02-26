@@ -46,11 +46,11 @@ const NavLink = ({ href, children, onMobileLinkClick }) => {
                 onClick={handleClick}
                 className="group relative py-1 text-gray-300 transition-colors"
             >
-                <span className={`transition-colors duration-300 ${children === 'Admin' ? 'group-hover:text-red-500' : 'group-hover:text-blue-400'}`}>
+                <span className={`transition-colors duration-300 ${children === 'Admin' ? 'group-hover:text-[#ff347f]' : 'group-hover:text-blue-400'}`}>
                     {firstLetter}
                 </span>
                 <span>{rest}</span>
-                <span className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${children === 'Admin' ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]' : 'bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]'}`} />
+                <span className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${children === 'Admin' ? 'bg-[#ff347f] shadow-[0_0_10px_rgba(255,52,127,0.5)]' : 'bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]'}`} />
             </a>
         );
     }
@@ -61,11 +61,11 @@ const NavLink = ({ href, children, onMobileLinkClick }) => {
             onClick={handleClick}
             className="group relative py-1 text-gray-300 transition-colors"
         >
-            <span className={`transition-colors duration-300 ${children === 'Admin' ? 'group-hover:text-red-500' : 'group-hover:text-blue-400'}`}>
+            <span className={`transition-colors duration-300 ${children === 'Admin' ? 'group-hover:text-[#ff347f]' : 'group-hover:text-blue-400'}`}>
                 {firstLetter}
             </span>
             <span>{rest}</span>
-            <span className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${children === 'Admin' ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]' : 'bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]'}`} />
+            <span className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${children === 'Admin' ? 'bg-[#ff347f] shadow-[0_0_10px_rgba(255,52,127,0.5)]' : 'bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.5)]'}`} />
         </Link>
     );
 };
