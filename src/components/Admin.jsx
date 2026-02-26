@@ -240,7 +240,7 @@ const Admin = () => {
                                                 type="text"
                                                 value={skillForm.skill}
                                                 onChange={(e) => setSkillForm({ ...skillForm, skill: e.target.value })}
-                                                className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500/50"
+                                                className="w-full bg-[#0a0f1d] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500/50 transition-colors"
                                             />
                                         </div>
                                         <div>
@@ -248,12 +248,12 @@ const Admin = () => {
                                             <select
                                                 value={skillForm.cat}
                                                 onChange={(e) => setSkillForm({ ...skillForm, cat: e.target.value })}
-                                                className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500/50"
+                                                className="w-full bg-[#0a0f1d] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500/50 transition-colors appearance-none"
                                             >
-                                                <option value="Languages">Languages</option>
-                                                <option value="Frameworks">Frameworks</option>
-                                                <option value="Tools">Tools</option>
-                                                <option value="AI/Data">AI/Data</option>
+                                                <option value="Languages" className="bg-[#0f172a]">Languages</option>
+                                                <option value="Frameworks" className="bg-[#0f172a]">Frameworks</option>
+                                                <option value="Tools" className="bg-[#0f172a]">Tools</option>
+                                                <option value="AI/Data" className="bg-[#0f172a]">AI/Data</option>
                                             </select>
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
@@ -265,7 +265,7 @@ const Admin = () => {
                                                     min="1" max="100"
                                                     value={skillForm.level}
                                                     onChange={(e) => setSkillForm({ ...skillForm, level: parseInt(e.target.value) })}
-                                                    className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500/50"
+                                                    className="w-full bg-[#0a0f1d] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500/50 transition-colors"
                                                 />
                                             </div>
                                             <div>

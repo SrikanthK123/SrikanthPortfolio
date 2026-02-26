@@ -51,7 +51,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#020617] flex items-center justify-center px-4 relative overflow-hidden font-sans">
+        <div className="min-h-screen bg-[#020617] flex items-center justify-center px-4 py-24 relative overflow-hidden font-sans">
             {/* Background Decorations */}
             <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -134,15 +134,18 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black uppercase tracking-widest text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-500/20 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white font-black uppercase tracking-widest text-sm hover:from-blue-500 hover:to-indigo-600 transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {loading ? (
                                 <>
                                     <Loader2 className="w-5 h-5 animate-spin" />
-                                    Verifying...
+                                    <span>Verifying Access...</span>
                                 </>
                             ) : (
-                                'Initiate Access'
+                                <>
+                                    <span>Initiate Access</span>
+                                    <ShieldCheck className="w-4 h-4 ml-1 opacity-50" />
+                                </>
                             )}
                         </button>
                     </form>
