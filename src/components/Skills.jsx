@@ -21,8 +21,47 @@ const Coffee = ({ size = 24, strokeWidth = 2, ...props }) => (
 
 import API_BASE_URL from '../config';
 
+const INITIAL_SKILLS = [
+    { skill: "JavaScript", level: 95, color: "#F7DF1E", cat: "Languages", iconName: "Code2" },
+    { skill: "Python", level: 90, color: "#3776AB", cat: "Languages", iconName: "Terminal" },
+    { skill: "Java", level: 85, color: "#007396", cat: "Languages", iconName: "Coffee" },
+    { skill: "C", level: 80, color: "#A8B9CC", cat: "Languages", iconName: "Terminal" },
+    { skill: "SQL (Postgres)", level: 90, color: "#336791", cat: "Languages", iconName: "Database" },
+    { skill: "MongoDB", level: 85, color: "#47A248", cat: "Languages", iconName: "Database" },
+    { skill: "HTML/CSS", level: 95, color: "#E34F26", cat: "Languages", iconName: "Layout" },
+    { skill: "Tailwind", level: 95, color: "#38B2AC", cat: "Languages", iconName: "Wind" },
+    { skill: "React", level: 90, color: "#61DAFB", cat: "Frameworks", iconName: "Atom" },
+    { skill: "Next.js", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Rocket" },
+    { skill: "Node.js", level: 85, color: "#68A063", cat: "Frameworks", iconName: "Server" },
+    { skill: "Express.js", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Zap" },
+    { skill: "Django", level: 80, color: "#092E20", cat: "Frameworks", iconName: "FileCode" },
+    { skill: "Scikit-learn", level: 80, color: "#F7931E", cat: "Frameworks", iconName: "LineChart" },
+    { skill: "TensorFlow", level: 75, color: "#FF6F00", cat: "Frameworks", iconName: "Brain" },
+    { skill: "Keras", level: 75, color: "#D00000", cat: "Frameworks", iconName: "Brain" },
+    { skill: "PySpark", level: 80, color: "#E25A1C", cat: "Frameworks", iconName: "Flame" },
+    { skill: "SparkSQL", level: 80, color: "#E25A1C", cat: "Frameworks", iconName: "Database" },
+    { skill: "LangChain", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "LinkIcon" },
+    { skill: "LLMs (Ollama)", level: 85, color: "#FFFFFF", cat: "Frameworks", iconName: "Bot" },
+    { skill: "Git", level: 90, color: "#F05032", cat: "Tools", iconName: "Github" },
+    { skill: "VS Code", level: 95, color: "#007ACC", cat: "Tools", iconName: "Monitor" },
+    { skill: "PyCharm", level: 85, color: "#21D789", cat: "Tools", iconName: "FileCode" },
+    { skill: "IntelliJ", level: 85, color: "#FE315D", cat: "Tools", iconName: "FileCode" },
+    { skill: "Eclipse", level: 75, color: "#2C2255", cat: "Tools", iconName: "Monitor" },
+    { skill: "Office (Excel/Word)", level: 90, color: "#2B579A", cat: "Tools", iconName: "FileText" },
+    { skill: "Outlook", level: 85, color: "#0078D4", cat: "Tools", iconName: "Mail" },
+    { skill: "GenAI", level: 90, color: "#FF4B4B", cat: "AI/Data", iconName: "Sparkles" },
+    { skill: "Vibe coding", level: 95, color: "#9B59B6", cat: "AI/Data", iconName: "Music" },
+    { skill: "AI Agents", level: 85, color: "#F1C40F", cat: "AI/Data", iconName: "Bot" },
+    { skill: "AppWrite", level: 80, color: "#F02D65", cat: "AI/Data", iconName: "Database" },
+    { skill: "Azure", level: 85, color: "#0089D6", cat: "AI/Data", iconName: "Cloud" },
+    { skill: "Azure Data Factory", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Layers" },
+    { skill: "Azure Databricks", level: 85, color: "#FF3621", cat: "AI/Data", iconName: "Box" },
+    { skill: "Azure Data Lake", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Waves" },
+    { skill: "Delta Lake", level: 80, color: "#0089D6", cat: "AI/Data", iconName: "Database" },
+];
+
 const Skills = () => {
-    const [skills, setSkills] = useState([]);
+    const [skills, setSkills] = useState(INITIAL_SKILLS);
     const [loading, setLoading] = useState(true);
     const [activeSkill, setActiveSkill] = useState(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -32,10 +71,16 @@ const Skills = () => {
         const fetchSkills = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/skills`);
-                const data = await response.json();
-                setSkills(data);
+                const backendData = await response.json();
+
+                // Merge: Keep initial skills, add backend ones that aren't duplicates
+                const existingSkills = new Set(INITIAL_SKILLS.map(s => s.skill));
+                const newSkills = backendData.filter(s => !existingSkills.has(s.skill));
+
+                setSkills([...INITIAL_SKILLS, ...newSkills]);
             } catch (error) {
                 console.error('Error fetching skills:', error);
+                // Status stays as INITIAL_SKILLS
             } finally {
                 setLoading(false);
             }

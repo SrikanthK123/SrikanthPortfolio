@@ -61,8 +61,108 @@ const ProjectCard = ({ title, description, tech, links, delay }) => (
 
 import API_BASE_URL from '../config';
 
+const INITIAL_PROJECTS = [
+    {
+        title: "Moral_Verse",
+        description: "AI-Driven Positive Network for moral quote posters. It features real-time updates and intelligent content moderation.",
+        tech: ["React", "Node.js", "MongoDB", "Express", "GitHub"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://moral-verse.vercel.app' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/MoralVerse' }
+        ]
+    },
+    {
+        title: "Budget Chef AI",
+        description: "AI-powered recipe assistant that generates meals based on user budget and available ingredients.",
+        tech: ["React", "Node.js", "Express", "Gemini API", "Tailwind CSS"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://budget-chef-ai.vercel.app' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/budget-chef-ai' }
+        ]
+    },
+    {
+        title: "SriAI – Smart AI Assistant",
+        description: "AI-driven web application that provides intelligent responses and dynamic content generation.",
+        tech: ["React", "Node.js", "Express", "Gemini API", "MongoDB"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanth-ai-chat.lovable.app/' }
+        ]
+    },
+    {
+        title: "Sri-Vision-AI",
+        description: "AI-powered image analysis system that processes visual inputs using machine learning models.",
+        tech: ["React", "TensorFlow", "Node.js", "Express", "Gemini Vision API"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://sri-vision-ai.lovable.app/' }
+        ]
+    },
+    {
+        title: "AI-Power Guess (Drawing Recognition)",
+        description: "Interactive AI drawing recognition application that predicts user sketches in real-time.",
+        tech: ["React", "TensorFlow.js", "Node.js", "Canvas API", "Gemini API"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanthk123.github.io/AIGuess/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/AIGuess' }
+        ]
+    },
+    {
+        title: "Cinema – Movie Discovery Platform",
+        description: "Responsive movie browsing platform that allows users to explore trending and latest films.",
+        tech: ["ReactJS", "HTML", "CSS", "JavaScript", "Bootstrap"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanthk123.github.io/FilmZone/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/FilmZone' }
+        ]
+    },
+    {
+        title: "ExploreIndia – Virtual Travel Experience",
+        description: "Interactive web platform that showcases India's diverse culture and destinations.",
+        tech: ["ReactJS", "HTML", "CSS", "JavaScript", "Bootstrap"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanthk123.github.io/ExploreIndia/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/ExploreIndia' }
+        ]
+    },
+    {
+        title: "SriStore – E-Commerce Platform",
+        description: "Modern online shopping interface offering a smooth product browsing experience.",
+        tech: ["ReactJS", "HTML", "CSS", "JavaScript", "Bootstrap"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanthk123.github.io/SriStore/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/SriStore' }
+        ]
+    },
+    {
+        title: "Explore Universe – Space Exploration Web App",
+        description: "Visually engaging web application that presents fascinating insights about space and galaxies.",
+        tech: ["ReactJS", "HTML", "CSS", "JavaScript", "Bootstrap"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanthk123.github.io/EarthDiscover/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/EarthDiscover' }
+        ]
+    },
+    {
+        title: "Food Zone – Interactive Food Experience",
+        description: "Responsive ReactJS web application showcasing engaging food-themed content with modern UI.",
+        tech: ["ReactJS", "HTML", "CSS", "JavaScript", "Bootstrap"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://tastyzone.netlify.app/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/FoodZone' }
+        ]
+    },
+    {
+        title: "Music World – Movie Songs Platform",
+        description: "Dynamic ReactJS platform featuring a curated collection of movie songs.",
+        tech: ["ReactJS", "HTML", "CSS", "JavaScript", "Bootstrap"],
+        links: [
+            { type: 'live', label: 'Live', url: 'https://srikanthk123.github.io/MusicTime/' },
+            { type: 'github', label: 'GitHub', url: 'https://github.com/SrikanthK123/MusicTime' }
+        ]
+    }
+];
+
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState(INITIAL_PROJECTS);
     const [loading, setLoading] = useState(true);
     const [showAll, setShowAll] = useState(false);
 
@@ -70,9 +170,15 @@ const Projects = () => {
         const fetchProjects = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/projects`);
-                const data = await response.json();
+                const backendData = await response.json();
 
-                // Custom Priority Order
+                // Merge: Keep all initial projects, then add backend projects that aren't already there
+                const existingTitles = new Set(INITIAL_PROJECTS.map(p => p.title));
+                const newProjects = backendData.filter(p => !existingTitles.has(p.title));
+
+                const allProjects = [...INITIAL_PROJECTS, ...newProjects];
+
+                // Custom Priority Order for the final list
                 const priorityOrder = [
                     "Moral_Verse",
                     "Sri-Vision-AI",
@@ -80,7 +186,7 @@ const Projects = () => {
                     "SriAI – Smart AI Assistant"
                 ];
 
-                const sortedData = [...data].sort((a, b) => {
+                const sortedData = [...allProjects].sort((a, b) => {
                     const indexA = priorityOrder.indexOf(a.title);
                     const indexB = priorityOrder.indexOf(b.title);
 
@@ -93,6 +199,7 @@ const Projects = () => {
                 setProjects(sortedData);
             } catch (error) {
                 console.error('Error fetching projects:', error);
+                // On error, we still have INITIAL_PROJECTS in state
             } finally {
                 setLoading(false);
             }
