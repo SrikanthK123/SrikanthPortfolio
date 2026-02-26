@@ -172,31 +172,35 @@ const Projects = () => {
                 const response = await fetch(`${API_BASE_URL}/api/projects`);
                 const backendData = await response.json();
 
-                // Merge: Keep all initial projects, then add backend projects that aren't already there
-                const existingTitles = new Set(INITIAL_PROJECTS.map(p => p.title));
-                const newProjects = backendData.filter(p => !existingTitles.has(p.title));
+                if (Array.isArray(backendData)) {
+                    // Merge: Keep all initial projects, then add backend projects that aren't already there
+                    const existingTitles = new Set(INITIAL_PROJECTS.map(p => p.title));
+                    const newProjects = backendData.filter(p => !existingTitles.has(p.title));
 
-                const allProjects = [...INITIAL_PROJECTS, ...newProjects];
+                    const allProjects = [...INITIAL_PROJECTS, ...newProjects];
 
-                // Custom Priority Order for the final list
-                const priorityOrder = [
-                    "Moral_Verse",
-                    "Sri-Vision-AI",
-                    "Budget Chef AI",
-                    "SriAI – Smart AI Assistant"
-                ];
+                    // Custom Priority Order for the final list
+                    const priorityOrder = [
+                        "Moral_Verse",
+                        "Sri-Vision-AI",
+                        "Budget Chef AI",
+                        "SriAI – Smart AI Assistant"
+                    ];
 
-                const sortedData = [...allProjects].sort((a, b) => {
-                    const indexA = priorityOrder.indexOf(a.title);
-                    const indexB = priorityOrder.indexOf(b.title);
+                    const sortedData = [...allProjects].sort((a, b) => {
+                        const indexA = priorityOrder.indexOf(a.title);
+                        const indexB = priorityOrder.indexOf(b.title);
 
-                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-                    if (indexA !== -1) return -1;
-                    if (indexB !== -1) return 1;
-                    return 0;
-                });
+                        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                        if (indexA !== -1) return -1;
+                        if (indexB !== -1) return 1;
+                        return 0;
+                    });
 
-                setProjects(sortedData);
+                    setProjects(sortedData);
+                } else {
+                    console.error('Expected array from backend, got:', backendData);
+                }
             } catch (error) {
                 console.error('Error fetching projects:', error);
                 // On error, we still have INITIAL_PROJECTS in state

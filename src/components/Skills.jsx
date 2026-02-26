@@ -73,11 +73,15 @@ const Skills = () => {
                 const response = await fetch(`${API_BASE_URL}/api/skills`);
                 const backendData = await response.json();
 
-                // Merge: Keep initial skills, add backend ones that aren't duplicates
-                const existingSkills = new Set(INITIAL_SKILLS.map(s => s.skill));
-                const newSkills = backendData.filter(s => !existingSkills.has(s.skill));
+                if (Array.isArray(backendData)) {
+                    // Merge: Keep initial skills, add backend ones that aren't duplicates
+                    const existingSkills = new Set(INITIAL_SKILLS.map(s => s.skill));
+                    const newSkills = backendData.filter(s => !existingSkills.has(s.skill));
 
-                setSkills([...INITIAL_SKILLS, ...newSkills]);
+                    setSkills([...INITIAL_SKILLS, ...newSkills]);
+                } else {
+                    console.error('Expected array from backend, got:', backendData);
+                }
             } catch (error) {
                 console.error('Error fetching skills:', error);
                 // Status stays as INITIAL_SKILLS
